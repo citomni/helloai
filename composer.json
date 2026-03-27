@@ -1,0 +1,88 @@
+{
+	"name": "citomni/helloai",
+	"description": "Lean chatbot API integration package for CitOmni: Unified chat request/response format, provider adapters, DB-backed cache, and reuse of the existing Curl infrastructure service.",
+	"type": "library",
+	"license": "MIT",
+	"homepage": "https://github.com/citomni/helloai",
+	"keywords": [
+		"ai",
+		"chatbot",
+		"chat",
+		"openai",
+		"anthropic",
+		"gemini",
+		"llm",
+		"api",
+		"curl",
+		"http",
+		"cache",
+		"php",
+		"high-performance",
+		"low-overhead",
+		"deterministic",
+		"php8",
+		"citomni",
+		"citomni-framework",
+		"citomni-php",
+		"green-by-design",
+		"deterministic-config",
+		"framework"
+	],
+	"require": {
+		"php": "^8.2",
+		"ext-json": "*",
+		"citomni/kernel": "^1.0",
+		"citomni/infrastructure": "^1.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"CitOmni\\HelloAi\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"CitOmni\\HelloAi\\Tests\\": "tests/"
+		}
+	},
+	"require-dev": {
+		"phpunit/phpunit": "^11.0",
+		"phpstan/phpstan": "^1.11"
+	},
+	"suggest": {
+		"ext-opcache": "Better performance in production.",
+		"citomni/http": "Optional. Install when using HelloAi from HTTP applications.",
+		"citomni/cli": "Optional. Install when using HelloAi from CLI applications or package-provided maintenance commands."
+	},
+	"support": {
+		"issues": "https://github.com/citomni/helloai/issues",
+		"source": "https://github.com/citomni/helloai",
+		"docs": "https://github.com/citomni/helloai#readme"
+	},
+	"authors": [
+		{
+			"name": "Lars Grove Mortensen",
+			"homepage": "https://www.citomni.com"
+		}
+	],
+	"config": {
+		"sort-packages": true,
+		"optimize-autoloader": true
+	},
+	"archive": {
+		"exclude": [
+			"/.github",
+			"/docs",
+			"/tests",
+			"/dev",
+			"/examples",
+			"/vendor",
+			"/.editorconfig",
+			"/.gitattributes",
+			"/.gitignore",
+			"/phpunit.xml*",
+			"/.idea",
+			"/.vscode",
+			"/Makefile"
+		]
+	}
+}
