@@ -36,15 +36,6 @@ CREATE TABLE `helloai_cache` (
   KEY `idx_profile_expires_at` (`profile`,`expires_at`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `helloai_cache`
---
-
-LOCK TABLES `helloai_cache` WRITE;
-/*!40000 ALTER TABLE `helloai_cache` DISABLE KEYS */;
-/*!40000 ALTER TABLE `helloai_cache` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -55,4 +46,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2026-03-27 16:58:54
+-- Dump completed on 2026-05-07 20:44:10
