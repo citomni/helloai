@@ -23,8 +23,6 @@ use CitOmni\HelloAi\Exception\ProviderRequestException;
 use CitOmni\HelloAi\Repository\HelloAiCacheRepository;
 use CitOmni\HelloAi\Util\CacheKeyBuilder;
 use CitOmni\HelloAi\Util\SecretSanitizer;
-use CitOmni\Infrastructure\Exception\CurlConfigException;
-use CitOmni\Infrastructure\Exception\CurlExecException;
 use CitOmni\Kernel\Cfg;
 use CitOmni\Kernel\Service\BaseService;
 
@@ -232,9 +230,6 @@ final class HelloAi extends BaseService {
 
 			return $response;
 			
-		} catch (CurlConfigException | CurlExecException $e) {
-			$this->logRequestFailure($profileId, $profileConfig, $adapter, $cacheKey, $startedAt, $e);
-			throw $e;
 		} catch (\Throwable $e) {
 			$this->logRequestFailure($profileId, $profileConfig, $adapter, $cacheKey, $startedAt, $e);
 			throw $e;
