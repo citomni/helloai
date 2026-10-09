@@ -25,7 +25,6 @@ use CitOmni\HelloAi\Util\CacheKeyBuilder;
 use CitOmni\HelloAi\Util\SecretSanitizer;
 use CitOmni\Infrastructure\Exception\CurlConfigException;
 use CitOmni\Infrastructure\Exception\CurlExecException;
-use CitOmni\Infrastructure\Exception\CurlResponseParseException;
 use CitOmni\Kernel\Cfg;
 use CitOmni\Kernel\Service\BaseService;
 
@@ -115,7 +114,6 @@ final class HelloAi extends BaseService {
 	 * @throws \CitOmni\HelloAi\Exception\ProviderRequestException When the provider request cannot be built or configured correctly.
 	 * @throws \CitOmni\Infrastructure\Exception\CurlConfigException When the outbound Curl request is invalid.
 	 * @throws \CitOmni\Infrastructure\Exception\CurlExecException When the outbound Curl request fails during execution.
-	 * @throws \CitOmni\Infrastructure\Exception\CurlResponseParseException When the Curl response cannot be parsed.
 	 */
 	public function chat(array $request): array {
 		$startedAt = \microtime(true);
@@ -234,7 +232,7 @@ final class HelloAi extends BaseService {
 
 			return $response;
 			
-		} catch (CurlConfigException | CurlExecException | CurlResponseParseException $e) {
+		} catch (CurlConfigException | CurlExecException $e) {
 			$this->logRequestFailure($profileId, $profileConfig, $adapter, $cacheKey, $startedAt, $e);
 			throw $e;
 		} catch (\Throwable $e) {
