@@ -27,8 +27,7 @@
 	"require": {
 		"php": "^8.5",
 		"ext-json": "*",
-		"citomni/kernel": "^1.0",
-		"citomni/infrastructure": "^1.0"
+		"citomni/infrastructure": "^1.0.1.0"
 	},
 	"autoload": {
 		"psr-4": {
