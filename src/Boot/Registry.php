@@ -16,34 +16,27 @@ declare(strict_types=1);
 namespace CitOmni\HelloAi\Boot;
 
 /**
- * Boot registry for the HelloAi provider package.
+ * Registry: Boot contributions of citomni/helloai.
  *
- * Exposes the package-level service map, config baseline, HTTP routes,
- * and CLI commands consumed by the CitOmni boot pipeline.
+ * Declares what the package adds to a host app as constant arrays. Merging them with the host
+ * app's own maps, and deciding what wins, belongs to the kernel.
  *
- * Behavior:
- * - Registers the public HelloAi service for both HTTP and CLI mode.
- * - Ships the package baseline config under the `helloai` root key.
- * - Provides no HTTP routes in v1.
- * - Provides no CLI commands in v1.
- *
- * Notes:
- * - Config and routes are merged with the standard CitOmni last-wins rules.
- * - Services are merged through the normal service-map union rules.
- * - Profile-specific secrets and app-level overrides belong in the host app config,
- *   not hardcoded here beyond a safe baseline.
- *
- * Typical usage:
- *   Discovered automatically by the CitOmni app boot process through the
- *   package provider registry mechanism.
+ * Rules:
+ * - Constants only: No IO, no runtime branching and no environment reads.
+ * - Services and cfg that work in both modes go in MAP_COMMON and CFG_COMMON. A mode-specific
+ *   constant holds only values that depend on one runtime.
+ * - Ship placeholders, never real API keys. Keys and app-specific profiles belong in the host
+ *   app's cfg.
  */
 final class Registry {
-	
-	public const MAP_HTTP = [
+
+	/** Services for HTTP and CLI. */
+	public const array MAP_COMMON = [
 		'helloAi' => \CitOmni\HelloAi\Service\HelloAi::class,
 	];
 
-	public const CFG_HTTP = [
+	/** Cfg baseline for HTTP and CLI. */
+	public const array CFG_COMMON = [
 		'helloai' => [
 			'default_profile' => 'dev',
 
@@ -186,16 +179,11 @@ final class Registry {
 		],
 	];
 
-	public const ROUTES_HTTP = [];
+	/** HTTP routes. */
+	public const array ROUTES_HTTP = [];
 
-
-
-
-	public const MAP_CLI = self::MAP_HTTP;
-
-	public const CFG_CLI = self::CFG_HTTP;
-
-	public const COMMANDS_CLI = [
+	/** CLI commands. */
+	public const array COMMANDS_CLI = [
 		'helloai:chat' => [
 			'command' => \CitOmni\HelloAi\Command\ChatCommand::class,
 			'description' => 'Send a chat message through a configured HelloAi profile',
