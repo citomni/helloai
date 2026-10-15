@@ -38,18 +38,21 @@ final class Registry {
 	/** Cfg baseline for HTTP and CLI. */
 	public const array CFG_COMMON = [
 		'helloai' => [
-			'default_profile' => 'dev',
+			'default_profile' => 'dev', // Profile for a request that names none.
 
 			'debug' => [
-				'include_raw_response' => false,
-				'include_built_request' => false,
+				'include_raw_response'  => false, // Put the provider's raw response in the result's raw key, unless the request sets the flag.
+				'include_built_request' => false, // Put the built provider request in the result's meta.built_request, unless the request sets the flag.
 			],
 
 			'cache' => [
-				'enabled' => true,
-				'ttl' => 3600,
+				'enabled' => true, // Serve and store responses through the database cache table.
+				'ttl'     => 3600, // Seconds a cached response stays valid; 0 or less uses 3600.
 			],
 
+			// Profiles by id. adapter: the AdapterInterface class. model: model name sent to the
+			// provider. api_key: provider key; the shipped values are placeholders an app must
+			// replace. base_url: provider endpoint URL. timeout: cURL timeout in seconds.
 			'profiles' => [
 				'dev' => [
 					'adapter' => \CitOmni\HelloAi\Provider\Dev\DevAdapter::class,

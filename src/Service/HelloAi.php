@@ -256,13 +256,13 @@ final class HelloAi extends BaseService {
 		$helloAiCfg = $this->app->cfg->helloai;
 
 		$defaultDebug = [
-			'include_raw_response' => (bool)($helloAiCfg->debug->include_raw_response ?? false),
-			'include_built_request' => (bool)($helloAiCfg->debug->include_built_request ?? false),
+			'include_raw_response' => (bool)$helloAiCfg->debug->include_raw_response,
+			'include_built_request' => (bool)$helloAiCfg->debug->include_built_request,
 		];
 
 		$normalized = $request;
 
-		$normalized['profile'] = (string)($normalized['profile'] ?? $helloAiCfg->default_profile ?? '');
+		$normalized['profile'] = (string)($normalized['profile'] ?? $helloAiCfg->default_profile);
 		$normalized['messages'] = \is_array($normalized['messages'] ?? null) ? $normalized['messages'] : [];
 		$normalized['options'] = \is_array($normalized['options'] ?? null) ? $normalized['options'] : [];
 		$normalized['tools'] = \is_array($normalized['tools'] ?? null) ? $normalized['tools'] : [];
@@ -356,11 +356,11 @@ final class HelloAi extends BaseService {
 	 * @throws \CitOmni\HelloAi\Exception\ProfileNotFoundException When the profile does not exist.
 	 */
 	private function resolveProfileConfig(string $profileId): array {
-		if (!isset($this->app->cfg->helloai->profiles->{$profileId})) {
+		$profileConfig = $this->app->cfg->helloai->profiles->{$profileId} ?? null;
+
+		if ($profileConfig === null) {
 			throw new ProfileNotFoundException(\sprintf('HelloAi profile "%s" was not found.', $profileId));
 		}
-
-		$profileConfig = $this->app->cfg->helloai->profiles->{$profileId};
 
 		if (!$profileConfig instanceof Cfg) {
 			throw new ProviderRequestException(\sprintf(
@@ -596,7 +596,7 @@ final class HelloAi extends BaseService {
 	 * @return bool True when caching is enabled.
 	 */
 	private function isCacheEnabled(): bool {
-		return (bool)($this->app->cfg->helloai->cache->enabled ?? true);
+		return (bool)$this->app->cfg->helloai->cache->enabled;
 	}
 
 
@@ -606,7 +606,7 @@ final class HelloAi extends BaseService {
 	 * @return int TTL in seconds.
 	 */
 	private function getCacheTtl(): int {
-		$ttl = (int)($this->app->cfg->helloai->cache->ttl ?? 3600);
+		$ttl = (int)$this->app->cfg->helloai->cache->ttl;
 
 		return $ttl > 0 ? $ttl : 3600;
 	}
